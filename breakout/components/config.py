@@ -1,0 +1,15 @@
+# Screen & gameplay constants
+WIDTH, HEIGHT = 800, 600
+PADDLE_SPEED = 40
+BALL_SPEED_START = 4
+BRICK_ROWS = 5
+BRICK_COLS = 10
+BRICK_W, BRICK_H = 60, 20
+BRICK_PAD = 10
+TOP_OFFSET = 50
+LIVES = 3
+POWERUP_CHANCE = 0.2
+POWERUP_SPEED = 2
+PARTICLE_COUNT = 8
+PARTICLE_SPEED = 3
+LEVEL_FILES = ['assets/levels/level1.json', 'assets/levels/level2.json']
