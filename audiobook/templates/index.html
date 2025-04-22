@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF → Audiobook</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>PDF to Audiobook</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+
+    <form id="uploadForm" action="{{ url_for('convert') }}" method="post" enctype="multipart/form-data">
+      <input type="file" name="pdf" accept="application/pdf" required>
+      <button type="submit">Convert to MP3</button>
+    </form>
+
+    <!-- Audio preview & download -->
+    <audio id="audioPlayer" class="audio-player" controls style="display:none;"></audio>
+    <a id="downloadBtn" class="download-btn" href="#" download style="display:none;">Download MP3</a>
+  </div>
+
+  <!-- Processing overlay -->
+  <div id="overlay" class="overlay">
+    <div class="loader"></div>
+    <div class="processing-text">Processing...</div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
