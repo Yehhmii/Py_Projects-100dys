@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Top 10 Image Colors</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Upload an Image to Find Top 10 Colors</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required>
+      <button type="submit">Analyze Colors</button>
+    </form>
+
+    {% if image_url %}
+    <div class="preview">
+      <h2>Preview</h2>
+      <img src="{{ image_url }}" alt="Uploaded Image">
+    </div>
+    <div class="colors">
+      <h2>Top 10 Colors</h2>
+      <div class="color-grid">
+        {% for rgb, hex, count in top_colors %}
+          <div class="color-box" style="background-color: {{ hex }}" data-hex="{{ hex }}">
+            <span>{{ hex }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</body>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</html>
