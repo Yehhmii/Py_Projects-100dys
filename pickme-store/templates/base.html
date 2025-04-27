@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %} PickMe-Anime {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css')}}"
+    />
+    <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </head>
+
+  <body>
+    <header class="p-3 mb-3 ">
+    <div class="container my-header">
+      <div class="d-flex flex-wrap align-items-center justify-content-between ">
+        <div class="d-flex justify-content-end nav">
+          <a href="{{ url_for('home') }}" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none logo">
+            ✨PMA
+          </a>
+          <div class="cart-link">
+            🛒 <span id="cart-count">{{ session.get('cart', {})|length }}</span>
+          </div>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 my-nav">
+            <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
+            <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
+            <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
+            <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
+          </ul>
+        </div>
+
+
+        <div class="d-flex justify-content-end">
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+          </form>
+
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+    {% include "footer.html" %}
+  </body>
+</html>

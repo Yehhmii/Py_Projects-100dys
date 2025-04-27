@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — Details{% endblock %}
+{% block content %}
+<article class="product-detail">
+  <img src="{{ product.image }}" alt="{{ product.name }}" class="detail-img">
+  <div class="detail-info">
+    <h2>{{ product.name }}</h2>
+    <p class="price">${{ "%.2f"|format(product.price) }}</p>
+    <p class="desc">{{ product.description }}</p>
+    <div class="qty-control">
+      <button id="dec">–</button>
+      <input type="text" id="qty" value="{{ quantity }}" readonly>
+      <button id="inc">+</button>
+    </div>
+    <button id="add-detail" class="btn add-btn" data-id="{{ product.id }}">
+      Add to Cart
+    </button>
+  </div>
+</article>
+{% endblock %}
