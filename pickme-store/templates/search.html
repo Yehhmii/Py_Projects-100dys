@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Search Results for "{{ request.args.get('q','') }}" {% endblock %}
+
+{% block content %}
+<div class="search-results">
+  <h2>Search Results for “{{ request.args.get('q','') }}”</h2>
+  {% if not products %}
+    <p>No products found. Try a different term.</p>
+    <a href="{{ url_for('index') }}" class="btn">Back to Store</a>
+  {% else %}
+    <section class="product-grid">
+      {% for p in products %}
+      <div class="card custom-search">
+        <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}">
+        <h3>{{ p.name }}</h3>
+        <p class="price">${{ "%.2f"|format(p.price) }}</p>
+        <div class="actions">
+          <button class="btn add-btn" data-id="{{ p.id }}">Add to Cart</button>
+          <a href="{{ url_for('product', pid=p.id) }}" class="btn info-btn">Learn More</a>
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+</div>
+{% endblock %}

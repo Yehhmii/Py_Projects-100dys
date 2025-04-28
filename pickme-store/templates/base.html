@@ -11,22 +11,29 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css')}}"
     />
     <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
-  </head>
 
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+    </script>
+  </head>
+  <!-- 4242424242424242 -->
   <body>
     <header class="p-3 mb-3 ">
     <div class="container my-header">
       <div class="d-flex flex-wrap align-items-center justify-content-between ">
         <div class="d-flex justify-content-end nav">
-          <a href="{{ url_for('home') }}" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none logo">
-            ✨PMA
+          <a href="{{ url_for('home') }}" class="d-flex align-items-center mb-2 pr-lg-5 mb-lg-0 link-body-emphasis text-decoration-none logo">
+            ✨
           </a>
-          <div class="cart-link">
-            🛒 <span id="cart-count">{{ session.get('cart', {})|length }}</span>
-          </div>
+          
 
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 my-nav">
             <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
@@ -37,15 +44,29 @@
         </div>
 
 
-        <div class="d-flex justify-content-end">
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        <div class="d-flex justify-content-end nav">
+          <div class="cart-link">
+             <a href="{{ url_for('cart') }}">🛒</a>   <span  id="cart-count">{{ session.get('cart', {})|length }}</span>
+          </div>
+
+        <div class="search-wrapper">
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{{ url_for('search') }}"
+            method="get">
+            <input name="q"
+            type="search"
+            class="form-control"
+            placeholder="Search products…"
+            aria-label="Search"
+            value="{{ request.args.get('q','') }}">
           </form>
+          <ul class="autocomplete-list"></ul>
+        </div>
 
           <div class="dropdown text-end">
             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
+            
             <ul class="dropdown-menu text-small">
               <li><a class="dropdown-item" href="#">New project...</a></li>
               <li><a class="dropdown-item" href="#">Settings</a></li>

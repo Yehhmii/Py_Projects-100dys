@@ -4,7 +4,7 @@
 <section class="cart-page">
   <h2>Your Shopping Cart</h2>
   {% if not items %}
-    <p>Your cart is empty. <a href="{{ url_for('index') }}">Keep shopping!</a></p>
+    <p>Your cart is empty. <a href="{{ url_for('home') }}">Keep shopping!</a></p>
   {% else %}
     <table>
       <thead><tr><th>Item</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead>
@@ -34,7 +34,9 @@
     </table>
     <div class="cart-total">
       <h3>Total: ${{ "%.2f"|format(total) }}</h3>
-      <button class="btn checkout-btn">Proceed to Checkout</button>
+      <button id="checkout-button" class="btn checkout-btn">
+        Proceed to Checkout
+      </button>
     </div>
   {% endif %}
 </section>

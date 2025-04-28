@@ -2,7 +2,7 @@
 {% block title %}{{ product.name }} — Details{% endblock %}
 {% block content %}
 <article class="product-detail">
-  <img src="{{ product.image }}" alt="{{ product.name }}" class="detail-img">
+  <img <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}" class="detail-img">
   <div class="detail-info">
     <h2>{{ product.name }}</h2>
     <p class="price">${{ "%.2f"|format(product.price) }}</p>
