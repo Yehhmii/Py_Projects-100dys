@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+  <div class="container, center-box">
+    <h2>🏆 Leaderboard</h2>
+    <table>
+      <tr><th>Rank</th><th>Name</th><th>Score</th><th>WPM</th><th>Words</th><th>Sentences</th></tr>
+      {% for e in entries %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ e.name }}</td>
+        <td>{{ e.score }}</td>
+        <td>{{ e.wpm }}</td>
+        <td>{{ e.words }}</td>
+        <td>{{ e.sentences }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="{{ url_for('index') }}">← Back</a>
+  </div>
+</body>
+</html>

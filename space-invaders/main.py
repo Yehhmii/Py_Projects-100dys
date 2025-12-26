@@ -97,7 +97,7 @@ def is_collision(t1, t2, tol=20):
 def game_loop():
     global enemy_dx, bullet_state
 
-    # Move enemies
+    # Move enemiesndu open we have
     reverse = False
     for e in enemies:
         e.setx(e.xcor() + enemy_dx)

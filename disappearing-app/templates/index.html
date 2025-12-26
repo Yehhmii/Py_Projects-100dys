@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enter Your Name</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+  <div class="center-box">
+    <h2>Welcome to the Disappearing Text App</h2>
+    <form method="POST">
+      <input name="name" placeholder="Your name" required maxlength="20">
+      <button type="submit">Start Writing</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Write — {{ name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Hello, {{ name }}!</h2>
+    <textarea id="writer" placeholder="Type…"></textarea>
+    <div id="countdown"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="resultModal" class="modal">
+    <div class="modal-content">
+      <h3>Time's Up!</h3>
+      <p id="finalText"></p>
+      <p id="metrics"></p>
+      <button id="toLeaderboard">View Leaderboard</button>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static',filename='script.js') }}"></script>
+</body>
+</html>

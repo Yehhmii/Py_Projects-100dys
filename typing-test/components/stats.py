@@ -1,37 +1,38 @@
-import plotly.graph_objects as go
-import plotly.offline as pyo
+# ====== components/stats.py ======
+
+import tempfile
+import webbrowser
+from tkinter import messagebox
+
+from plotly.graph_objs import Bar, Figure, Layout
+from plotly.offline import plot
+
 from components.highscore import load_scores
 
 def plot_stats():
     data = load_scores()
     if not data:
-        # Create a blank figure with a “No scores” annotation
-        fig = go.Figure()
-        fig.add_annotation(
-            text="No scores yet",
-            x=0.5, y=0.5, showarrow=False,
-            font=dict(size=24),
-            xref="paper", yref="paper"
-        )
-        # Write to HTML and open it
-        pyo.plot(fig, filename='stats.html', auto_open=True)
+        messagebox.showinfo("No Data", "No scores yet!")
         return
 
+    # Sort and unpack
     labels, vals = zip(*sorted(data.items(), key=lambda x: x[0]))
 
-    fig = go.Figure(go.Bar(
-        x=vals,
-        y=labels,
-        orientation='h',
-        marker=dict(color='skyblue')
-    ))
-    fig.update_layout(
-        title='High Scores by Mode & Difficulty',
-        xaxis_title='WPM',
-        height=50 * len(labels) + 100,
-        margin=dict(l=120, r=20, t=50, b=20)
+    # Build the figure
+    fig = Figure(
+        data=[Bar(x=vals, y=labels, orientation='h', marker=dict(color='skyblue'))],
+        layout=Layout(
+            title='High Scores by Mode & Difficulty',
+            xaxis=dict(title='WPM'),
+            margin=dict(l=120, r=20, t=50, b=20),
+            height=50 * len(labels) + 100
+        )
     )
 
-    # This will generate a local HTML file (stats.html) and immediately open it:
-    pyo.plot(fig, filename='stats.html', auto_open=True)
-
+    try:
+        # Write to a real HTML file (with CDN plots) and open it
+        with tempfile.NamedTemporaryFile('w', suffix='.html', delete=False) as tmp:
+            fig.write_html(tmp.name, include_plotlyjs='cdn')
+            webbrowser.open(tmp.name)
+    except Exception as e:
+        messagebox.showerror("Plot Error", f"Could not display stats:\n{e}")
